@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { CatsService } from '../services/cats.service';
 
 @Controller('cats')
@@ -8,5 +8,10 @@ export class CatsController {
   @Post()
   async create(@Body() body: { name: string; age: number }) {
     return this.catsService.createCat(body.name, body.age);
+  }
+
+  @Get()
+  getCats(){
+    return this.catsService.findAll();
   }
 }
