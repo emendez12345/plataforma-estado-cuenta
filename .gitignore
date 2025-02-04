@@ -7,7 +7,16 @@
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+<<<<<<< Updated upstream
+/mongo_data
+.prod.env
+.stag.env
+docker-compose.yml
+.gitignore
 
+=======
+node_modules
+>>>>>>> Stashed changes
 # Sensitive or high-churn files:
 .idea/**/dataSources/
 .idea/**/dataSources.ids
@@ -16,6 +25,9 @@
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+package-lock
+.gitignore
+/mongo_data
 
 # Gradle:
 .idea/**/gradle.xml
