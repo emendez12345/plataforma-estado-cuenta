@@ -5,14 +5,14 @@ import { SoapService } from './soap.service';
 export class SoapController {
   constructor(private readonly soapService: SoapService) {}
 
-  @Get('consume')
-  async consumeSoap() {
+  // Endpoint para consumir el servicio SOAP
+  @Get('api-solutions')
+  async getApiSolutions() {
     try {
-      const result = await this.soapService.consumeSoapService();
-      return { result }; // Devolver el resultado de manera estructurada
+      const response = await this.soapService.apiSolutions();
+      return response.data; // Devolver la respuesta del servicio SOAP
     } catch (error) {
-      console.error('Error en el consumo SOAP:', error);
-      return { error: error.message || error }; // Manejo de error mejorado
+      throw new Error(`Error: ${error.message}`);
     }
   }
 }
