@@ -11,4 +11,8 @@ export class CatsService {
     const cat = new this.catModel({ name, age });
     return cat.save();
   }
+
+  async findAll(): Promise<Cat[]> {
+    return this.catModel.find().exec(); // Esto devuelve todos los registros de gatos
+  }
 }
