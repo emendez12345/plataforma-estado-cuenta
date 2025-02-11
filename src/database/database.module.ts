@@ -1,10 +1,6 @@
 import { Module, Global } from '@nestjs/common';
 import { MongoClient } from 'mongodb';
 
-// const cuentasCollection =database.collection('cuentas');
-// const cuentas= await cuentasCollection.find().toArray();
-// console.log(cuentas);
-
 const API_KEY = '12345634';
 const API_KEY_PROD = 'PROD1212121SA';
 
