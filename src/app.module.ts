@@ -1,13 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CatsController } from './controllers/cats.controller';
-import { CatsService } from './services/cats.service';
-import { Cat, CatSchema} from './schemas/cat.schema';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-import { SoapService } from './soap/soap.service';
-import { SoapController } from './soap/soap.controller';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
@@ -16,9 +10,10 @@ import { SoapController } from './soap/soap.controller';
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
     }),
-    MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
+    // MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
+    AccountsModule
   ],
-  controllers: [CatsController, SoapController],
-  providers: [CatsService, SoapService],
+  // controllers: [CatsController, SoapController],
+  // providers: [CatsService, SoapService],
 })
 export class AppModule {}

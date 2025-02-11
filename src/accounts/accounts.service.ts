@@ -1,14 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { CreateAccountDto } from './dto/create-account.dto';
+import { UpdateAccountDto } from './dto/update-account.dto';
 import axios from 'axios';
 import * as xml2js from 'xml2js';
+import { InjectModel } from '@nestjs/mongoose';
+import { AccountsSchema } from '../schemas/accounts.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
-export class SoapService {
-  // URL del servicio SOAP
+export class AccountsService {
+  constructor(
+    @InjectModel('Accounts') private readonly accountsModel: Model<AccountsSchema>
+  ) {}
   private url =
     'https://app-colombia.solutionsmalls.com:22573/jSolutionsUnico/APISolutionsWS';
+  create(createAccountDto: CreateAccountDto) {
+    return 'This action adds a new account';
+  }
 
-  // Función para hacer la llamada SOAP
+  findAll() {
+    return `This action returns all accounts`;
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} account`;
+  }
+
+  update(id: number, updateAccountDto: UpdateAccountDto) {
+    return `This action updates a #${id} account`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} account`;
+  }
+
   async apiSolutions(): Promise<any> {
     // Definir los encabezados SOAP
     const headers = {
@@ -55,8 +80,15 @@ export class SoapService {
       // Convertir la respuesta XML a JSON
       const jsonResponse = await parser.parseStringPromise(response.data);
 
-      // Retornar el JSON directamente
-      return jsonResponse;
+      const data= jsonResponse['soap:Envelope']['soap:Body'][
+        'ns2:carteraClientesObtenerResponse'
+      ]['return']['CarteraClientesSolutions'];
+      const newDocument = new this.accountsModel({
+        data: data,
+
+      });
+      return await newDocument.save();
+      
     } catch (error) {
       // Manejo de errores
       throw new Error(`Error en la petición: ${error.message}`);
