@@ -14,6 +14,11 @@ export class AccountsController {
 
   @Get()
   findAll() {
+    return this.accountsService.findAll();
+  }
+
+  @Get('save')
+  saveAll() {
     return this.accountsService.apiSolutions();
   }
 

@@ -18,8 +18,9 @@ export class AccountsService {
     return 'This action adds a new account';
   }
 
-  findAll() {
-    return `This action returns all accounts`;
+  async findAll(): Promise<AccountsSchema[]> {
+    return this.accountsModel.find().exec();
+    // return `This action returns all accounts`;
   }
 
   findOne(id: number) {
@@ -54,7 +55,7 @@ export class AccountsService {
                     <FiltrosCarteraClientes>
                         <CabeceraCarteraClientes>
                             <CodigoEmpresa>13</CodigoEmpresa>
-                            <CodigoCliente>569</CodigoCliente>
+                            <CodigoCliente>696</CodigoCliente>
                             <NumeroContrato></NumeroContrato>
                             <DivisaExpresion></DivisaExpresion>
                             <CotizacionExpresion></CotizacionExpresion>
@@ -87,6 +88,7 @@ export class AccountsService {
         data: data,
 
       });
+      // return newDocument;
       return await newDocument.save();
       
     } catch (error) {
