@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AccountsService } from './accounts.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { json } from 'node:stream/consumers';
 
 @Controller('accounts')
 export class AccountsController {
@@ -13,8 +22,30 @@ export class AccountsController {
   }
 
   @Get()
-  findAll() {
-    return this.accountsService.findAll();
+  async findAll() {
+    const accountServices = await this.accountsService.apiSolutions();
+    const accounts = []; // Array para acumular los datos
+    // return accountServices.data.ComprobanteSolutions;
+    accountServices.data.ComprobanteSolutions.forEach((accountService) => {
+      const account = {
+        empresa:accountService.CabeceraComprobante.NombreEmpresa,
+        centroComercial:accountService.CabeceraComprobante.NombreCentroComercial,
+        fechaEmision:accountService.CabeceraComprobante.FechaEmision,
+        fechaVencimiento:accountService.CabeceraComprobante.FechaVencimiento,
+        // diasAtrasados:accountService.CabeceraComprobante.FechaEmision, - FechaVencimiento
+        factura:accountService.CabeceraComprobante.NumeracionComprobante,
+        // valor:accountService.CabeceraComprobante.No, se encuentra
+        // intereses:accountService.CabeceraComprobante.No, se encuentra
+        observaciones:accountService.CabeceraComprobante.Observaciones,
+        // estado:accountService.CabeceraComprobante.FechaEmision, - FechaVencimiento
+              };
+
+      // Agregar el objeto account al array accounts
+      accounts.push(account);
+    });
+
+    // Retornar el array con todos los objetos 'accounts'
+    return accounts;
   }
 
   @Get('save')
